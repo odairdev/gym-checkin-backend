@@ -1,7 +1,4 @@
-import { IUsersRepository } from "@/repositories/IUsersRepository";
 import { CheckIn, User } from "@prisma/client";
-import { AuthenticationError } from "./errors/authentication-error";
-import { compare } from "bcryptjs";
 import { ICheckInsRepository } from "@/repositories/ICheckInsRepository";
 import { IGymsRepository } from "@/repositories/IGymsRepository";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
