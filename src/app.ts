@@ -4,6 +4,7 @@ import { UserRoutes } from "./http/controllers/users/usersRoutes";
 import { env } from "./env";
 import fastifyJwt from "@fastify/jwt";
 import { GymsRoutes } from "./http/controllers/gyms/gymsRoutes";
+import { CheckInRoutes } from "./http/controllers/checkIns/checkInRoutes";
 
 const app = fastify()
 
@@ -17,6 +18,10 @@ app.register(UserRoutes, {
 
 app.register(GymsRoutes, {
   prefix: '/gyms'
+})
+
+app.register(CheckInRoutes, {
+  prefix: '/checkin'
 })
 
 app.setErrorHandler((error, request, reply) => {

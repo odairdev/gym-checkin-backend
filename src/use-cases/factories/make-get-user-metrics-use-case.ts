@@ -2,7 +2,7 @@ import { PrismaCheckInRepository } from "@/repositories/prisma/prisma-checkIn-re
 import { GetUserMetricsUseCase } from "../get-user-metrics";
 
 
-export function MakeGetUserMetricsUseCase() {
+export function makeGetUserMetricsUseCase() {
   const checkInsRepository = new PrismaCheckInRepository()
   const getUserMetricsUseCase = new GetUserMetricsUseCase(checkInsRepository)
 
