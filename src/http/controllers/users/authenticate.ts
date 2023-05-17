@@ -14,9 +14,15 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
   try {
     const authenticateUsecase = makeAuthenticateUseCase()
 
-    await authenticateUsecase.execute({email, password})
+    const { user } = await authenticateUsecase.execute({email, password})
 
-    return reply.status(200).send()
+    const token = await reply.jwtSign({}, {
+      sign: {
+        sub: user.id
+      }
+    })
+
+    return reply.status(200).send({token})
   } catch(err) {
     if(err instanceof AuthenticationError) {
       return reply.status(403).send({ message: err.message})
