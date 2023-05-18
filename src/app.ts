@@ -1,16 +1,26 @@
 import fastify from "fastify";
+import fastifyJwt from "@fastify/jwt";
+import fastifyCookie from "@fastify/cookie";
 import { ZodError } from 'zod'
 import { UserRoutes } from "./http/controllers/users/usersRoutes";
 import { env } from "./env";
-import fastifyJwt from "@fastify/jwt";
 import { GymsRoutes } from "./http/controllers/gyms/gymsRoutes";
 import { CheckInRoutes } from "./http/controllers/checkIns/checkInRoutes";
 
 const app = fastify()
 
 app.register(fastifyJwt, {
-  secret: env.JWT_SECRET
+  secret: env.JWT_SECRET,
+  cookie: {
+    cookieName: 'refreshToken',
+    signed: false
+  },
+  sign: {
+    expiresIn: '10m'
+  }
 })
+
+app.register(fastifyCookie)
 
 app.register(UserRoutes, {
   prefix: '/users'
