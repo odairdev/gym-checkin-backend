@@ -3,7 +3,7 @@ import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createAndAuthenticateUse } from '@/utils/test/create=and-authenticate-user'
 
-describe('Create Gym Controller', () => {
+describe('Search nearby Gym Controller', () => {
   beforeAll(async () => {
     await app.ready()
   })

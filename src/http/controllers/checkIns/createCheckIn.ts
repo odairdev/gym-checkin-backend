@@ -33,7 +33,7 @@ export async function createCheckIn(
       userLongitude,
     });
 
-    return reply.status(200).send(checkIn);
+    return reply.status(201).send(checkIn);
   } catch (err) {
     if (
       err instanceof ResourceNotFoundError ||
