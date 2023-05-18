@@ -1,6 +1,7 @@
 import request from 'supertest'
 import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { createAndAuthenticateUse } from '@/utils/test/create=and-authenticate-user'
 
 describe('Create Gym Controller', () => {
   beforeAll(async () => {
@@ -11,25 +12,20 @@ describe('Create Gym Controller', () => {
     await app.close()
   })
 
-  it('should be able to get user profile', async () => {
-    await request(app.server).post('/users').send({
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      password: '123456'
+  it('should be able to create a gym', async () => {
+    const token = await createAndAuthenticateUse(app)
+
+    const response = await request(app.server).post('/gyms').set('Authorization', `Bearer ${token}`).send({
+      title: 'Javascript Gym',
+      description: 'some description',
+      phone: '',
+      latitude: -26.9055772,
+      longitude: -48.6467763
     })
 
-    const authResponse = await request(app.server).post('/users/authenticate').send({
-      email: 'johndoe@example.com',
-      password: '123456'
-    })
-
-    const { token } = authResponse.body
-
-    const profileResponse = await request(app.server).get('/users/profile').set('Authorization', `Bearer ${token}`)
-
-    expect(profileResponse.statusCode).toEqual(200)
-    expect(profileResponse.body.user).toEqual(expect.objectContaining({
-      email: expect.any(String)
+    expect(response.statusCode).toEqual(201)
+    expect(response.body).toEqual(expect.objectContaining({
+      title: 'Javascript Gym'
     }))
   })
 })

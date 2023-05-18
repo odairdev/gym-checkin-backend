@@ -9,5 +9,5 @@ export async function GymsRoutes(app: FastifyInstance) {
   
   app.post('/', createGym)
   app.get('/search', searchGyms)
-  app.get('/nearby', nearbyGyms)
+  app.post('/nearby', nearbyGyms)
 }

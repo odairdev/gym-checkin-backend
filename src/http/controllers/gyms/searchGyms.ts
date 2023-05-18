@@ -18,7 +18,7 @@ export async function searchGyms(request: FastifyRequest<{ Querystring: searchGy
   try {
     const searchGymsUseCase = MakeSearchGymUseCase()
 
-    const { gyms } = await searchGymsUseCase.execute({query, page})
+    const gyms = await searchGymsUseCase.execute({query, page})
 
     return reply.status(200).send(gyms)
   } catch(err) {
